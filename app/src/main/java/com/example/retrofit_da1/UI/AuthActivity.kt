@@ -28,7 +28,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun setUp() {
-        // Configurar botones y acciones de autenticación
+
         binding.btnRegister.setOnClickListener {
             if (binding.etEmail.text.isNotEmpty() && binding.etPassword.text.isNotEmpty()) {
                 viewModel.registerWithEmailAndPassword(
@@ -74,72 +74,3 @@ class AuthActivity : AppCompatActivity() {
         startActivity(homeIntent)
     }
 }
-
-
-/*class AuthActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityAuthBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityAuthBinding.inflate(layoutInflater)
-        enableEdgeToEdge()
-        setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-        setUp()
-    }
-
-    private fun setUp(){
-        title = "Autenticacion"
-        binding.btnRegister.setOnClickListener{
-            if(binding.etEmail.text.isNotEmpty() && binding.etPassword.text.isNotEmpty()){
-                FirebaseAuth.getInstance().
-                createUserWithEmailAndPassword(binding.etEmail.text.toString(),
-                                                binding.etPassword.text.toString()
-                ).addOnCompleteListener{
-                    if(it.isSuccessful){
-                        goHome()
-                    }else{
-                        showAlert()
-                    }
-                }
-
-            }
-        }
-
-        binding.btnIniciar.setOnClickListener {
-            if(binding.etEmail.text.isNotEmpty() && binding.etPassword.text.isNotEmpty()){
-                FirebaseAuth.getInstance().
-                signInWithEmailAndPassword(binding.etEmail.text.toString(),
-                    binding.etPassword.text.toString()
-                ).addOnCompleteListener{
-                    if(it.isSuccessful){
-                        goHome()
-                    }else{
-                        showAlert()
-                    }
-                }
-
-            }
-        }
-    }
-
-    private fun showAlert(){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
-        builder.setMessage("Se produjo un error al autenticar")
-        builder.setPositiveButton("Aceptar",null)
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
-    }
-
-    private fun goHome(){
-        val homeIntent = Intent(this,MainActivity::class.java)
-        startActivity(homeIntent)
-    }
-}
-* */
