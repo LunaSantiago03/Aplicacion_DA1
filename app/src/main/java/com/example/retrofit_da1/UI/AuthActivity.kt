@@ -1,7 +1,9 @@
 package com.example.retrofit_da1.UI
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.retrofit_da1.R
 import com.example.retrofit_da1.databinding.ActivityAuthBinding
 import com.example.retrofit_da1.databinding.ActivityMainBinding
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
 class AuthActivity : AppCompatActivity() {
@@ -25,6 +28,7 @@ class AuthActivity : AppCompatActivity() {
         setUp()
 
         viewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
+
     }
 
     private fun setUp() {
@@ -58,6 +62,13 @@ class AuthActivity : AppCompatActivity() {
                 }
             }
         }
+
+        binding.btnGoogle.setOnClickListener {
+            val googleConf = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+        }
     }
 
     private fun showAlert(){
@@ -70,7 +81,9 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun goHome(){
-        val homeIntent = Intent(this,MainActivity::class.java)
+        val homeIntent = Intent(this,MainActivity::class.java).apply{
+            putExtra("emial", binding.etEmail.text.toString())
+        }
         startActivity(homeIntent)
     }
 }
