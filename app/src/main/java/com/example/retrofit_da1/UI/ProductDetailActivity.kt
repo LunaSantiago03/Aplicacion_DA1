@@ -1,5 +1,6 @@
 package com.example.retrofit_da1.UI
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
@@ -19,6 +20,7 @@ class ProductDetailActivity : AppCompatActivity() {
     private lateinit var viewModel: ProductDetailViewModel
     private lateinit var context: Context
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
@@ -31,7 +33,9 @@ class ProductDetailActivity : AppCompatActivity() {
                 .load(product.images[0])
                 .into(binding.ivProduct)
             binding.tvTitle.text = product.title
-            binding.tvPrice.text = product.price.toString()
+            binding.tvPrice.text = "$"+product.price
+            binding.tvDescription.text = product.description
+            binding.tvCategory.text = "Category: "+product.category.name
         }
     }
 

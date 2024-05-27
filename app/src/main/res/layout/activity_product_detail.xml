@@ -6,9 +6,16 @@
     android:background="@color/miWhite"
     android:layout_height="match_parent">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </ScrollView>
     <ImageView
+        android:layout_marginTop="10dp"
         android:id="@+id/ivProduct"
-        android:layout_width="400dp"
+        android:layout_width="match_parent"
         android:layout_height="400dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,14 +31,13 @@
 
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         tools:text="Classic Black Baseball cap"
         app:layout_constraintTop_toBottomOf="@+id/ivProduct"
-
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="10dp"
-        android:textSize="24dp"
+        android:textSize="25sp"
         android:textColor="@color/black"
         android:textStyle="bold"
         />
@@ -47,9 +53,44 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:textSize="24dp"
-        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:textColor="@color/verdeOscuroBotones"
         android:textStyle="bold"
         />
 
+    <TextView
+        android:id="@+id/tvDescripcionTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Descripcion"
+        android:textColor="@color/black"
+        android:layout_marginStart="10dp"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPrice" />
+
+    <TextView
+        android:layout_margin="10sp"
+        android:id="@+id/tvDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescripcionTitulo" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/tvCategory"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="Category: Clothes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>
