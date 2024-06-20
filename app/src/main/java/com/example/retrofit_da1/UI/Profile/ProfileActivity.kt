@@ -1,9 +1,10 @@
-package com.example.retrofit_da1.UI
+package com.example.retrofit_da1.UI.Profile
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.retrofit_da1.R
+import com.example.retrofit_da1.UI.Main.MainActivity
 import com.example.retrofit_da1.UI.favoritesList.FavoritesActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 

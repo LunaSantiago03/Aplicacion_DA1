@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.example.retrofit_da1.Model.CategorySingle
-import com.example.retrofit_da1.UI.MainActivity
+import com.example.retrofit_da1.UI.Main.MainActivity
 import com.example.retrofit_da1.databinding.FiltersProductsBinding
 
 class FiltersDialog (
@@ -58,7 +58,7 @@ class FiltersDialog (
         categoryNames.addAll(categories.map { it.name })
         val adapter = ArrayAdapter(
             requireContext(),
-            R.layout.spinner_item_p,
+            R.layout.simple_spinner_item,
             categoryNames
         )
         adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)

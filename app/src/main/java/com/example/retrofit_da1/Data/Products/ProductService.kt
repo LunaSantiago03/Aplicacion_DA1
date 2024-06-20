@@ -1,8 +1,8 @@
-package com.example.retrofit_da1.Data
+package com.example.retrofit_da1.Data.Products
 
+import com.example.retrofit_da1.Data.RetrofitHelper
 import com.example.retrofit_da1.Model.ProductDetail
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.time.delay
 import kotlinx.coroutines.withContext
 
 class ProductService {

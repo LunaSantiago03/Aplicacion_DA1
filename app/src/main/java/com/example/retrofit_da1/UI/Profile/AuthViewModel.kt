@@ -1,12 +1,6 @@
-package com.example.retrofit_da1.UI
+package com.example.retrofit_da1.UI.Profile
 
-import android.content.Context
-import android.provider.Settings
-import android.provider.Settings.Global.getString
 import androidx.lifecycle.ViewModel
-import com.example.retrofit_da1.R
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
 class AuthViewModel : ViewModel() {

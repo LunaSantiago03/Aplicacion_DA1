@@ -1,20 +1,15 @@
-package com.example.retrofit_da1.UI
+package com.example.retrofit_da1.UI.Profile
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import com.example.retrofit_da1.Data.ApiException
+import com.example.retrofit_da1.Data.Products.ApiException
 import com.example.retrofit_da1.R
+import com.example.retrofit_da1.UI.Main.MainActivity
 import com.example.retrofit_da1.databinding.ActivityAuthBinding
-import com.example.retrofit_da1.databinding.ActivityMainBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -139,7 +134,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun goHome(){
-        val homeIntent = Intent(this,MainActivity::class.java).apply{
+        val homeIntent = Intent(this, MainActivity::class.java).apply{
             putExtra("emial", binding.etEmail.text.toString())
         }
         startActivity(homeIntent)

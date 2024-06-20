@@ -1,6 +1,6 @@
 package com.example.retrofit_da1.Data.Categories
 
-import com.example.retrofit_da1.Data.ApiException
+import com.example.retrofit_da1.Data.Products.ApiException
 import com.example.retrofit_da1.Data.RetrofitHelper
 import com.example.retrofit_da1.Model.CategorySingle
 import kotlinx.coroutines.Dispatchers

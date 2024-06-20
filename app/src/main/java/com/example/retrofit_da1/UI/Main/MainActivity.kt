@@ -1,15 +1,13 @@
-package com.example.retrofit_da1.UI
+package com.example.retrofit_da1.UI.Main
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Filter
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
@@ -18,6 +16,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofit_da1.Model.CategorySingle
 import com.example.retrofit_da1.R
+import com.example.retrofit_da1.UI.Profile.AuthViewModel
+import com.example.retrofit_da1.UI.Detail.ProductDetailActivity
+import com.example.retrofit_da1.UI.Profile.ProfileActivity
 import com.example.retrofit_da1.UI.components.FiltersDialog
 import com.example.retrofit_da1.UI.favoritesList.FavoritesActivity
 import com.example.retrofit_da1.databinding.ActivityMainBinding

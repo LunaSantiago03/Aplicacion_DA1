@@ -1,12 +1,11 @@
-package com.example.retrofit_da1.UI
+package com.example.retrofit_da1.UI.Main
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.retrofit_da1.Data.Categories.CategoriesRepository
 import com.example.retrofit_da1.Data.FavoriteRepository
-import com.example.retrofit_da1.Data.ProductsRepository
+import com.example.retrofit_da1.Data.Products.ProductsRepository
 import com.example.retrofit_da1.Model.CategorySingle
 import com.example.retrofit_da1.Model.FavoriteProduct
 import com.example.retrofit_da1.Model.ProductDetail
@@ -14,7 +13,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
 import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.coroutineContext
 
 class MainViewModel: ViewModel() {
 

@@ -1,4 +1,4 @@
-package com.example.retrofit_da1.UI
+package com.example.retrofit_da1.UI.Main
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

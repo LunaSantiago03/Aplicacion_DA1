@@ -1,12 +1,9 @@
-package com.example.retrofit_da1.UI
+package com.example.retrofit_da1.UI.Detail
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.retrofit_da1.Data.ApiException
 import com.example.retrofit_da1.Data.FavoriteRepository
-import com.example.retrofit_da1.Data.ProductsRepository
+import com.example.retrofit_da1.Data.Products.ProductsRepository
 import com.example.retrofit_da1.Model.FavoriteProduct
 import com.example.retrofit_da1.Model.ProductDetail
 import kotlinx.coroutines.CoroutineScope

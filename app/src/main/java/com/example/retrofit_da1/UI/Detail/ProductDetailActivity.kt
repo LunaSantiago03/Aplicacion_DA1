@@ -1,19 +1,12 @@
-package com.example.retrofit_da1.UI
+package com.example.retrofit_da1.UI.Detail
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.bumptech.glide.Glide
-import com.example.retrofit_da1.Data.FavoriteRepository
-import com.example.retrofit_da1.R
 import com.example.retrofit_da1.databinding.ActivityProductDetailBinding
 
 class ProductDetailActivity : AppCompatActivity() {

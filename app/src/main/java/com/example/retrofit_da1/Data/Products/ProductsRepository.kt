@@ -1,5 +1,6 @@
-package com.example.retrofit_da1.Data
+package com.example.retrofit_da1.Data.Products
 
+import com.example.retrofit_da1.Data.Products.ProductService
 import com.example.retrofit_da1.Model.ProductDetail
 
 class ProductsRepository {

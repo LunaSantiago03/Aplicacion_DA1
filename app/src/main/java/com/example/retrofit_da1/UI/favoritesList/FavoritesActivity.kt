@@ -6,14 +6,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retrofit_da1.R
-import com.example.retrofit_da1.UI.MainActivity
-import com.example.retrofit_da1.UI.ProductDetailActivity
-import com.example.retrofit_da1.UI.ProfileActivity
+import com.example.retrofit_da1.UI.Main.MainActivity
+import com.example.retrofit_da1.UI.Detail.ProductDetailActivity
+import com.example.retrofit_da1.UI.Profile.ProfileActivity
 import com.example.retrofit_da1.databinding.ActivityFavoritesBinding
-import com.example.retrofit_da1.databinding.FavoriteItemProductBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
