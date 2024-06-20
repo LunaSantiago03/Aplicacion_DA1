@@ -4,6 +4,7 @@ import com.example.retrofit_da1.Model.ProductDetail
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ProductsAPI {
     @GET("products")
@@ -32,4 +33,13 @@ interface ProductsAPI {
         ):
         Response<List<ProductDetail>>
 
+    /*@GET("products/?title={title}")
+    suspend fun getProductsSearch(
+        @Query("title") title:String
+    ):
+    Response<List<ProductDetail>>*/
+    @GET("products")
+    suspend fun getProductsSearch(
+        @Query("title") title: String
+    ): Response<List<ProductDetail>>
 }

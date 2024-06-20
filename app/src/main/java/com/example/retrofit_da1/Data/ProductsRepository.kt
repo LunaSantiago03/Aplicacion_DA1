@@ -14,4 +14,9 @@ class ProductsRepository {
         return PS.getProductById(id)
     }
 
+    suspend fun getProductsSearch(title:String) :MutableList<ProductDetail>{
+        return PS.getProductsSearch(title)
+    }
+
+
 }

@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.Retrofit_DA1" parent="Base.Theme.Retrofit_DA1" />
+
+    <style name="BottomNavigatio">
+        <item name="android:background">@color/verdeOscuro</item>
+        <item name="itemIconTint">@color/miWhite</item>
+        <item name="itemTextColor">@color/miWhite</item>
+    </style>
 </resources>

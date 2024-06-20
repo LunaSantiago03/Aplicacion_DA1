@@ -86,7 +86,7 @@
             <Button
                 android:id="@+id/btnRegister"
                 android:layout_width="150dp"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:backgroundTint="@color/verdeOscuroBotones"
                 android:text="Registrarme"
                 android:textSize="18sp"
@@ -96,7 +96,7 @@
             <Button
                 android:id="@+id/btnIniciar"
                 android:layout_width="150dp"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:backgroundTint="@color/verdeOscuro"
                 android:text="Iniciar Sesion"
                 android:textSize="18sp"

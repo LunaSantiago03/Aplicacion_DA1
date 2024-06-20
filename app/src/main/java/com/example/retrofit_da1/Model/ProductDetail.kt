@@ -9,4 +9,14 @@ data class ProductDetail (
     @SerializedName("description") val description: String,
     @SerializedName("category") val category: CategorySingle,
     @SerializedName("images") val images: List<String>
-)
+){
+    constructor():this(
+        0,
+        "",
+        "",
+        "",
+        CategorySingle(0,"",""),
+        ArrayList<String>()
+    )
+
+}

@@ -12,7 +12,12 @@
           "package_name": "com.example.retrofit_da1"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "531327983153-05hja6siuhrr57togph5qr1fbmobkkqf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBZatbf67TF2X8PROkKXT3e-eDiGMxeXaA"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531327983153-05hja6siuhrr57togph5qr1fbmobkkqf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

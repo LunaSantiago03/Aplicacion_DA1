@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofit_da1.Model.ProductDetail
 import com.example.retrofit_da1.R
 
-class ProductAdapter(private val onItemClick: (ProductDetail) -> Unit) : RecyclerView.Adapter<ProductViewHolder>() {
-    var products: MutableList<ProductDetail> = ArrayList()
+class ProductAdapter(private val onItemClick: (ProductDetail) -> Unit) :
+    RecyclerView.Adapter<ProductViewHolder>() {
+    var products: MutableList<ProductDetail> = ArrayList<ProductDetail>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -26,7 +27,6 @@ class ProductAdapter(private val onItemClick: (ProductDetail) -> Unit) : Recycle
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun update(list: MutableList<ProductDetail>) {
         products = list
         this.notifyDataSetChanged()
