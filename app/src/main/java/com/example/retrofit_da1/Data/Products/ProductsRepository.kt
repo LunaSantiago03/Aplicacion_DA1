@@ -19,5 +19,9 @@ class ProductsRepository {
         return PS.getProductsSearch(title)
     }
 
+    suspend fun getProductsByRangePrice(min: Int, max: Int):MutableList<ProductDetail>{
+        return PS.getProductsByPriceRange(min,max)
+    }
+
 
 }

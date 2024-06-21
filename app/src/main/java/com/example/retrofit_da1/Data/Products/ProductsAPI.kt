@@ -21,12 +21,14 @@ interface ProductsAPI {
         @Path("price") price: Int
         ):
         Response<List<ProductDetail>>
-    @GET("products/?price_min={priceMin}&price_max={priceMax}")
+
+    @GET("products")
     suspend fun getProductsByPriceRange(
-        @Path("priceMin") priceMin: Int,
-        @Path("priceMax") priceMax: Int
-        ):
-        Response<List<ProductDetail>>
+        @Query("price_min") priceMin: Int,
+        @Query("price_max") priceMax: Int
+    ): Response<List<ProductDetail>>
+
+
     @GET("products/?categoryId={id}")
     suspend fun getProductsByCategory(
         @Path("id") id: Int

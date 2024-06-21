@@ -79,6 +79,18 @@ class MainViewModel: ViewModel() {
 
     }
 
+    fun getByRangePrice(min:Int,max:Int){
+        scope.launch {
+            kotlin.runCatching {
+                ProductRepo.getProductsByRangePrice(min,max)
+            }.onSuccess {
+                products.postValue(it)
+            }.onFailure {
+                Log.e("MainViewModel", "Fallo buscar por rango", it)
+            }
+        }
+    }
+
     fun isFavorite(id:Int):Boolean{
         return FProducts.value?.any { it.id == id } == true
     }

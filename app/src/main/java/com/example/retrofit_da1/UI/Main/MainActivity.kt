@@ -107,7 +107,6 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText.isNullOrEmpty()) {
-                    // Cuando el texto está vacío, obtenemos todos los productos
                     viewModel.onStart()
                 }
                 return false
@@ -127,6 +126,13 @@ class MainActivity : AppCompatActivity() {
     fun onDialogDismissed() {
         if (!pMin.isNullOrEmpty() && !pMax.isNullOrEmpty()) {
             Toast.makeText(this, "Minimo: $pMin y Maximo: $pMax", Toast.LENGTH_SHORT).show()
+            viewModel.getByRangePrice(pMin!!.toInt(),pMax!!.toInt())
+        }
+        else if(!pMin.isNullOrEmpty() && pMax.isNullOrEmpty()){
+            Toast.makeText(this, "Minimo: $pMin", Toast.LENGTH_SHORT).show()
+        }
+        else if(pMin.isNullOrEmpty() && !pMax.isNullOrEmpty()){
+            Toast.makeText(this, "Maximo: $pMax", Toast.LENGTH_SHORT).show()
         }
     }
     private fun showFiltersDialog(categories: List<CategorySingle>) {

@@ -41,7 +41,17 @@ class ProductService {
         }
     }
 
+    suspend fun getProductsByPriceRange(min: Int, max: Int):MutableList<ProductDetail>{
+        return withContext(Dispatchers.IO){
+            val res = retrofit.create(ProductsAPI::class.java).getProductsByPriceRange(min,max)
+            if (res.isSuccessful) {
+                res.body()?.toMutableList() ?: throw ApiException("Product not found")
+            } else {
+                throw ApiException("Failed to fetch product: ${res.code()} - ${res.message()}")
+            }
+        }
+    }
 
 
-}
-class ApiException(message: String) : Exception(message)
+
+}class ApiException(message: String) : Exception(message)
