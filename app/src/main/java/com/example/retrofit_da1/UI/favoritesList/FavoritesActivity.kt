@@ -1,8 +1,10 @@
 package com.example.retrofit_da1.UI.favoritesList
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retrofit_da1.R
 import com.example.retrofit_da1.UI.Main.MainActivity
 import com.example.retrofit_da1.UI.Detail.ProductDetailActivity
+import com.example.retrofit_da1.UI.Profile.AuthActivity
+import com.example.retrofit_da1.UI.Profile.AuthViewModel
 import com.example.retrofit_da1.UI.Profile.ProfileActivity
 import com.example.retrofit_da1.databinding.ActivityFavoritesBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -21,6 +25,7 @@ class FavoritesActivity : AppCompatActivity(), OnFavoriteDeleteListener{
     private lateinit var viewModel: favoritesListViewModel
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var favoritesAdapter : favoritesListAdapter
+    private val authViewModel: AuthViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -54,10 +59,7 @@ class FavoritesActivity : AppCompatActivity(), OnFavoriteDeleteListener{
                     true
                 }
                 R.id.navigation_profile -> {
-                    val intent = Intent(this, ProfileActivity::class.java).apply {
-                        addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-                    }
-                    startActivity(intent)
+                    signOut()
                     true
                 }
                 else -> false
@@ -101,5 +103,24 @@ class FavoritesActivity : AppCompatActivity(), OnFavoriteDeleteListener{
     }
     override fun onFavoriteDelete(id: Int) {
         viewModel.deleteFavorite(id)
+    }
+
+
+    private fun signOut() {
+        authViewModel.signOut()
+        clearUserSession()
+        navigateToAuthActivity()
+    }
+
+    private fun clearUserSession() {
+        val prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit()
+        prefs.remove("user_id")
+        prefs.apply()
+    }
+
+    private fun navigateToAuthActivity() {
+        val intent = Intent(this, AuthActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

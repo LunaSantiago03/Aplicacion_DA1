@@ -91,6 +91,18 @@ class MainViewModel: ViewModel() {
         }
     }
 
+    fun getByCategory(id:Int){
+        scope.launch {
+            kotlin.runCatching {
+                ProductRepo.getProductsByCategory(id)
+            }.onSuccess {
+                products.postValue(it)
+            }.onFailure {
+                Log.e("MainViewModel", "Fallo buscar por categoria", it)
+            }
+        }
+    }
+
     fun isFavorite(id:Int):Boolean{
         return FProducts.value?.any { it.id == id } == true
     }

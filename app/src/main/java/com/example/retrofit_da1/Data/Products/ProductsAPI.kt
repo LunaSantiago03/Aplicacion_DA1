@@ -28,18 +28,11 @@ interface ProductsAPI {
         @Query("price_max") priceMax: Int
     ): Response<List<ProductDetail>>
 
-
-    @GET("products/?categoryId={id}")
+    @GET("products")
     suspend fun getProductsByCategory(
-        @Path("id") id: Int
-        ):
-        Response<List<ProductDetail>>
+        @Query("categoryId") categoryId: Int
+    ): Response<List<ProductDetail>>
 
-    /*@GET("products/?title={title}")
-    suspend fun getProductsSearch(
-        @Query("title") title:String
-    ):
-    Response<List<ProductDetail>>*/
     @GET("products")
     suspend fun getProductsSearch(
         @Query("title") title: String

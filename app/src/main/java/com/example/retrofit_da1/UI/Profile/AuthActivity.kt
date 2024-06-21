@@ -1,10 +1,13 @@
 package com.example.retrofit_da1.UI.Profile
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.retrofit_da1.Data.Products.ApiException
 import com.example.retrofit_da1.R
@@ -15,7 +18,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AuthActivity : AppCompatActivity() {
 
@@ -32,66 +39,60 @@ class AuthActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
 
-        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        // Configuración de Google Sign-In
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
-        auth = FirebaseAuth.getInstance()
-        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         binding.btnGoogle.setOnClickListener {
-            val intent = googleSignInClient.signInIntent
-            startActivityForResult(intent,100)
-
+            signInWithGoogle()
         }
+
+        viewModel.user.observe(this, Observer { user ->
+            if (user != null) {
+                saveUserSession(user)
+                goHome()
+            }
+        })
+
+
+        if (isUserLoggedIn()) {
+            goHome()
+        }
+    }
+
+    private fun signInWithGoogle() {
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-        if(requestCode == 100){
-            val accountTask = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try{
-                val ac = accountTask.getResult(ApiException::class.java)
-                firebaseGoogle(ac)
-            }catch (e:Exception){
-
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)!!
+                firebaseAuthWithGoogle(account.idToken!!)
+            } catch (e: ApiException) {
+                Log.w(TAG, "Google sign in failed", e)
+                Toast.makeText(this, "Google sign in failed: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
 
-    private fun firebaseGoogle(account: GoogleSignInAccount?) {
-        val credential = GoogleAuthProvider.getCredential(account!!.idToken, null)
-        auth.signInWithCredential(credential)
-            .addOnSuccessListener { authResult ->
-                val firebaseUser = auth.currentUser
-                val uid = firebaseUser!!.uid
-                val email = firebaseUser.email
-
-                if (authResult.additionalUserInfo!!.isNewUser) {
-                    // Crear Account
-                    Toast.makeText(this@AuthActivity, "Cuenta creada...", Toast.LENGTH_LONG).show()
-                    goHome()
-                }
-                else {
-                    Toast.makeText(this@AuthActivity, "Cuenta existente...", Toast.LENGTH_LONG).show()
-                    goHome()
-                }
-                goHome()
-                startActivity(Intent(this@AuthActivity, MainActivity::class.java))
-                finish()
-            }
-            .addOnFailureListener { e->
-                Toast.makeText(this@AuthActivity, "Login fallido...", Toast.LENGTH_LONG).show()
-            }
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            viewModel.signInWithGoogle(idToken)
+        }
     }
 
+
     private fun setUp() {
-
-
-
         binding.btnRegister.setOnClickListener {
             if (binding.etEmail.text.isNotEmpty() && binding.etPassword.text.isNotEmpty()) {
                 viewModel.registerWithEmailAndPassword(
@@ -133,10 +134,26 @@ class AuthActivity : AppCompatActivity() {
         dialog.show()
     }
 
+
     private fun goHome(){
-        val homeIntent = Intent(this, MainActivity::class.java).apply{
-            putExtra("emial", binding.etEmail.text.toString())
-        }
-        startActivity(homeIntent)
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun saveUserSession(user: FirebaseUser) {
+        val prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit()
+        prefs.putString("user_id", user.uid)
+        prefs.apply()
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        val prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
+        return prefs.getString("user_id", null) != null
+    }
+
+    companion object {
+        private const val TAG = "AuthActivity"
+        private const val RC_SIGN_IN = 9001
     }
 }

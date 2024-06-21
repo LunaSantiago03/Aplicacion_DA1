@@ -52,6 +52,17 @@ class ProductService {
         }
     }
 
+    suspend fun getProductsByCategory(id: Int) : MutableList<ProductDetail>{
+        return withContext(Dispatchers.IO){
+            val res = retrofit.create(ProductsAPI::class.java).getProductsByCategory(id)
+            if(res.isSuccessful){
+                res.body()?.toMutableList() ?: throw ApiException("Products not found")
+            }else{
+                throw ApiException("Failed to fetch product: ${res.code()} - ${res.message()}")
+            }
+        }
+    }
+
 
 
 }class ApiException(message: String) : Exception(message)

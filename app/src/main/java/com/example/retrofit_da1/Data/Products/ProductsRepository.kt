@@ -23,5 +23,9 @@ class ProductsRepository {
         return PS.getProductsByPriceRange(min,max)
     }
 
+    suspend fun getProductsByCategory(id: Int):MutableList<ProductDetail>{
+        return PS.getProductsByCategory(id)
+    }
+
 
 }
