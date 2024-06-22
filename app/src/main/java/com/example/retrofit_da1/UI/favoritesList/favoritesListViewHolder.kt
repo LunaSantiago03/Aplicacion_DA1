@@ -18,10 +18,12 @@ class favoritesListViewHolder(view: View): RecyclerView.ViewHolder(view) {
     fun bind(product: FavoriteProduct) {
         binding.tvTitle.text = product.title
         binding.tvPrice.text = "$" + product.price
+
         val requestOptions = RequestOptions().transform(RoundedCorners(20))
         Glide.with(itemView.context)
             .load(product.images[0])
             .apply(requestOptions)
             .into(binding.ivFoto)
+
     }
 }

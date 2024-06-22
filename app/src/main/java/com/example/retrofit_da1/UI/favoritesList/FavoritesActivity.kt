@@ -3,6 +3,7 @@ package com.example.retrofit_da1.UI.favoritesList
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,7 @@ import com.example.retrofit_da1.databinding.ActivityFavoritesBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.Delay
 
 class FavoritesActivity : AppCompatActivity(), OnFavoriteDeleteListener{
     private lateinit var binding: ActivityFavoritesBinding
@@ -69,8 +71,9 @@ class FavoritesActivity : AppCompatActivity(), OnFavoriteDeleteListener{
 
     override fun onStart(){
         super.onStart()
+        binding.progressBar.visibility = View.VISIBLE
         viewModel.onStart()
-
+        binding.progressBar.visibility = View.INVISIBLE
         viewModel.deleteFavoriteSuccess.observe(this, Observer { success ->
             if (success) {
                 Toast.makeText(this, "Se borró con éxito", Toast.LENGTH_SHORT).show()

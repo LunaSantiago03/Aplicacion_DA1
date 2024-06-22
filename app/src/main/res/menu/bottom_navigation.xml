@@ -3,14 +3,14 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@android:drawable/ic_input_add"
+        android:icon="@mipmap/homeicono"
         android:title="Home"/>
     <item
         android:id="@+id/navigation_favorites"
-        android:icon="@android:drawable/ic_input_delete"
+        android:icon="@mipmap/favoritesicono"
         android:title="Favoritos"/>
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@android:drawable/ic_lock_idle_alarm"
+        android:icon="@drawable/usuario"
         android:title="Perfil"/>
 </menu>

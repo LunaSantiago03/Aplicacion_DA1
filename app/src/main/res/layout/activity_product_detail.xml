@@ -44,9 +44,12 @@
 
             <Button
                 android:id="@+id/btnSaveFavorite"
-                android:layout_width="40dp"
-                android:layout_height="45dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_margin="10dp"
+                android:backgroundTintMode="@color/verdeOscuro"
+                android:backgroundTint="@color/verdeOscuro"
+                android:background="@mipmap/nosave"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivProduct" />
 

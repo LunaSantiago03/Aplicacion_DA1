@@ -8,7 +8,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -20,9 +20,8 @@
             android:theme="@style/Theme.Retrofit_DA1" />
         <activity
             android:name=".UI.Profile.AuthActivity"
-            android:exported="true">
-
-            <!-- Intent-filter para que sea la actividad de inicio -->
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,6 +34,7 @@
             android:theme="@style/Theme.Retrofit_DA1" />
         <activity
             android:name=".UI.Main.MainActivity"
+
             android:exported="true" />
 
         <activity

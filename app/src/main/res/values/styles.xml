@@ -7,9 +7,14 @@
 
     <style name="Theme.Retrofit_DA1" parent="Base.Theme.Retrofit_DA1" />
 
-    <style name="BottomNavigatio">
+    <style name="BottomNavigatio" parent="Base.Theme.Retrofit_DA1">
         <item name="android:background">@color/verdeOscuro</item>
         <item name="itemIconTint">@color/miWhite</item>
         <item name="itemTextColor">@color/miWhite</item>
     </style>
+
+    <style name="splashS">
+        <item name="android:windowBackground"> @drawable/splash </item>
+    </style>
+
 </resources>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -8,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".UI.Main.MainActivity"
     android:background="@color/white"
+    android:paddingTop="20dp"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,9 +21,10 @@
 
         <Button
             android:id="@+id/btnFilters"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_margin="10dp"
+            android:background="@mipmap/filtros"
             android:backgroundTint="@color/color1"
             android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +68,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clFooter"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -76,34 +77,11 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="?android:attr/windowBackground"
+            android:background="@color/verdeOscuroBotones"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:menu="@menu/bottom_navigation" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-<!--
-<FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/frame_container"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/frame_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navitation"
-        app:labelVisibilityMode="selected"
-        style="@style/BottomNavigation"
-        />
--->
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
