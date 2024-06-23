@@ -10,18 +10,14 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofit_da1.Model.CategorySingle
 import com.example.retrofit_da1.R
 import com.example.retrofit_da1.UI.Profile.AuthViewModel
 import com.example.retrofit_da1.UI.Detail.ProductDetailActivity
 import com.example.retrofit_da1.UI.Profile.AuthActivity
-import com.example.retrofit_da1.UI.Profile.ProfileActivity
 import com.example.retrofit_da1.UI.components.FiltersDialog
 import com.example.retrofit_da1.UI.favoritesList.FavoritesActivity
 import com.example.retrofit_da1.databinding.ActivityMainBinding
@@ -93,7 +89,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.onStart()
+        viewModel.onStart(this)
         binding.svProducts.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
@@ -104,7 +100,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText.isNullOrEmpty()) {
-                    viewModel.onStart()
+                    viewModel.onStart(this@MainActivity)
                 }
                 return false
             }
@@ -124,7 +120,7 @@ class MainActivity : AppCompatActivity() {
     private fun configSwipe(){
 
         binding.swipe.setOnRefreshListener{
-            viewModel.onStart()
+            viewModel.onStart(this)
             android.os.Handler(Looper.getMainLooper()).postDelayed({
                 binding.swipe.isRefreshing = false
             },1000)

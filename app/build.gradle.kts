@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("com.google.gms.google-services")
+    id("kotlin-kapt")
 }
 
 android {
@@ -68,4 +69,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //Room
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
+    annotationProcessor(libs.androidx.room.room.compiler)
+    implementation(libs.androidx.room.runtime)
+
+
 }

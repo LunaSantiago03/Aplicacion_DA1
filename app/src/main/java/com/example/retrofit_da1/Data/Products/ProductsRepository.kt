@@ -1,5 +1,6 @@
 package com.example.retrofit_da1.Data.Products
 
+import android.content.Context
 import com.example.retrofit_da1.Data.Products.ProductService
 import com.example.retrofit_da1.Model.ProductDetail
 
@@ -7,8 +8,8 @@ class ProductsRepository {
 
     private val PS = ProductService()
 
-    suspend fun getAllProducts(): MutableList<ProductDetail> {
-        return PS.getProducts()
+    suspend fun getAllProducts(context: Context): MutableList<ProductDetail> {
+        return PS.getProducts(context)
     }
 
     suspend fun getProductById(id: Int): ProductDetail {

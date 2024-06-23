@@ -1,6 +1,8 @@
 package com.example.retrofit_da1.UI.Main
 
+import android.content.Context
 import android.util.Log
+import android.widget.SearchView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.retrofit_da1.Data.Categories.CategoriesRepository
@@ -28,10 +30,10 @@ class MainViewModel: ViewModel() {
     var FProducts = MutableLiveData<ArrayList<FavoriteProduct>>()
     var categories = MutableLiveData<MutableList<CategorySingle>>()
 
-    fun onStart(){
+    fun onStart(context: Context){
         scope.launch {
             kotlin.runCatching {
-                ProductRepo.getAllProducts()
+                ProductRepo.getAllProducts(context)
             }.onSuccess{
                 products.postValue(it)
             }.onFailure {
