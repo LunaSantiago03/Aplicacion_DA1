@@ -28,4 +28,10 @@ interface ProductsDAO {
     fun saveCategory(vararg category: CategorySingleLocal)
     @Delete
     fun deleteProduct(product: ProductDetailLocal)
+
+    @Query("DELETE FROM Products")
+    fun clearAllProducts()
+
+    @Query("DELETE FROM Categories")
+    fun clearAllCategories()
 }

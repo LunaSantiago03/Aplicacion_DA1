@@ -120,24 +120,27 @@ class MainActivity : AppCompatActivity() {
     private fun configSwipe(){
         binding.swipe.setOnRefreshListener{
             viewModel.refresh(this)
-                binding.swipe.isRefreshing = false
+            binding.swipe.isRefreshing = false
 
         }
     }
     fun onDialogDismissed() {
-        if (!pMin.isNullOrEmpty() && !pMax.isNullOrEmpty()) {
+        if (!pMin.isNullOrEmpty() && !pMax.isNullOrEmpty() &&  selectedCategoryId == null) {
             Toast.makeText(this, "Minimo: $pMin y Maximo: $pMax", Toast.LENGTH_SHORT).show()
             viewModel.getByRangePrice(pMin!!.toInt(),pMax!!.toInt())
         }
-        else if(!pMin.isNullOrEmpty() && pMax.isNullOrEmpty()){
+        else if(!pMin.isNullOrEmpty() && pMax.isNullOrEmpty() && selectedCategoryId == null){
             Toast.makeText(this, "Minimo: $pMin", Toast.LENGTH_SHORT).show()
         }
-        else if(pMin.isNullOrEmpty() && !pMax.isNullOrEmpty()){
+        else if(pMin.isNullOrEmpty() && !pMax.isNullOrEmpty() && selectedCategoryId == null){
             Toast.makeText(this, "Maximo: $pMax", Toast.LENGTH_SHORT).show()
 
         }else if(pMin.isNullOrEmpty() && pMax.isNullOrEmpty() && selectedCategoryId != null){
             viewModel.getByCategory(selectedCategoryId!!)
             Toast.makeText(this,"Categoria: $selectedCategoryId",Toast.LENGTH_SHORT).show()
+        }else if(!pMin.isNullOrEmpty() && !pMax.isNullOrEmpty() && selectedCategoryId != null){
+            viewModel.getProductsFiltersJoin(pMin!!.toInt(),pMax!!.toInt(),selectedCategoryId!!)
+            Toast.makeText(this,"Buscando por los filotros",Toast.LENGTH_SHORT).show()
         }
     }
     private fun showFiltersDialog(categories: List<CategorySingle>) {

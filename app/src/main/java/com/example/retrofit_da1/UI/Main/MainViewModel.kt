@@ -44,12 +44,11 @@ class MainViewModel: ViewModel() {
 
     fun refresh(context: Context){
         scope.launch {
-            kotlin.runCatching {
-                ProductRepo.refresh(context)
-            }.onSuccess {
-                products.postValue(it)
-            }.onFailure {
-
+            try {
+                val refreshedProducts = ProductRepo.refresh(context)
+                products.postValue(refreshedProducts)
+            } catch (e: Exception) {
+                Log.e("MainViewModel", "Error refreshing products", e)
             }
         }
     }
@@ -101,6 +100,18 @@ class MainViewModel: ViewModel() {
                 products.postValue(it)
             }.onFailure {
                 Log.e("MainViewModel", "Fallo buscar por rango", it)
+            }
+        }
+    }
+
+    fun getProductsFiltersJoin(min:Int,max:Int,id: Int){
+        scope.launch {
+            kotlin.runCatching {
+                ProductRepo.getProductsFiltersJoin(min,max,id)
+            }.onSuccess{
+                products.postValue(it)
+            }.onFailure {
+                Log.e("MainViewModel", "Fallo buscar con filtros", it)
             }
         }
     }

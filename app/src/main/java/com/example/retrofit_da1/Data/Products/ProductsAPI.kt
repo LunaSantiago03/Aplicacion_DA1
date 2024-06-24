@@ -37,4 +37,11 @@ interface ProductsAPI {
     suspend fun getProductsSearch(
         @Query("title") title: String
     ): Response<List<ProductDetail>>
+
+    @GET("products")
+    suspend fun getProductsFiltersJoin(
+        @Query("price_min") priceMin: Int,
+        @Query("price_max") priceMax: Int,
+        @Query("categoryId") categoryId: Int
+    ):Response<List<ProductDetail>>
 }

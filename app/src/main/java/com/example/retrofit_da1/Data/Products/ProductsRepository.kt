@@ -31,5 +31,9 @@ class ProductsRepository {
         return PS.getProductsByCategory(id)
     }
 
+    suspend fun getProductsFiltersJoin(min: Int, max: Int,id: Int) : MutableList<ProductDetail>{
+        return PS.getProductsFiltersJoin(min, max, id)
+    }
+
 
 }
