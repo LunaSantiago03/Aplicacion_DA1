@@ -35,6 +35,8 @@ class ProductDetailActivity : AppCompatActivity() {
             binding.tvDescription.text = product.description
             binding.tvCategory.text = "Category: "+product.category.name
             binding.progressBar.visibility = View.INVISIBLE
+            binding.tvDescripcionTitulo.visibility = View.VISIBLE
+            binding.btnSaveFavorite.visibility = View.VISIBLE
         }
         observe(productId)
     }
@@ -42,8 +44,11 @@ class ProductDetailActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val productId = intent.getIntExtra("productId", -1)
+        binding.tvDescripcionTitulo.visibility = View.INVISIBLE
+        binding.btnSaveFavorite.visibility = View.INVISIBLE
         binding.progressBar.visibility = View.VISIBLE
         viewModel.loadProductDetail(productId,this)
+
 
     }
 
@@ -62,5 +67,10 @@ class ProductDetailActivity : AppCompatActivity() {
                 Toast.makeText(this,"Guardado con exito",Toast.LENGTH_SHORT).show()
             }
         }
+        binding.btnBack.setOnClickListener{
+            finish()
+        }
     }
+
+
 }

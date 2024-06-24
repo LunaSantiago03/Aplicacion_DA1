@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/miWhite"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="10dp"
+    >
 
     <ScrollView
         android:layout_width="0dp"
@@ -34,13 +36,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/btnBack"
+                android:background="@mipmap/back"
+                android:backgroundTintMode="@color/black"
+                android:layout_width="43dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <ImageView
+                android:layout_marginTop="9dp"
                 android:id="@+id/ivProduct"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+                app:layout_constraintTop_toBottomOf="@+id/btnBack" />
 
             <Button
                 android:id="@+id/btnSaveFavorite"
