@@ -118,12 +118,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun configSwipe(){
-
         binding.swipe.setOnRefreshListener{
-            viewModel.onStart(this)
-            android.os.Handler(Looper.getMainLooper()).postDelayed({
+            viewModel.refresh(this)
                 binding.swipe.isRefreshing = false
-            },1000)
 
         }
     }

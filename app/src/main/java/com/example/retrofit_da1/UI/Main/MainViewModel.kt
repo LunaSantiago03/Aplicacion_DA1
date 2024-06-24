@@ -42,6 +42,18 @@ class MainViewModel: ViewModel() {
         }
     }
 
+    fun refresh(context: Context){
+        scope.launch {
+            kotlin.runCatching {
+                ProductRepo.refresh(context)
+            }.onSuccess {
+                products.postValue(it)
+            }.onFailure {
+
+            }
+        }
+    }
+
     fun getCategories(){
         scope.launch {
             kotlin.runCatching {

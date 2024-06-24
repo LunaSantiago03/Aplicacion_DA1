@@ -40,6 +40,27 @@ class ProductService () {
         }.toMutableList()
     }
 
+    suspend fun refresh(context: Context): MutableList<ProductDetail>{
+        return withContext(Dispatchers.IO) {
+            val response = retrofit.create(ProductsAPI::class.java).getAllProducts()
+            if (response.isSuccessful) {
+                val productList = response.body() ?: emptyList()
+                if (productList.isNotEmpty()) {
+                    // Guardar categorías primero
+                    val db = AppDataBase.getInstance(context)
+                    val categories = productList.map { it.category }.distinctBy { it.id }
+                    db.productsDAO().saveCategory(*categories.map { it.toCategorySingleLocal() }.toTypedArray())
+
+                    // Guardar productos
+                    db.productsDAO().saveProduct(*productList.toProductListLocal().toTypedArray())
+                }
+                productList
+            } else {
+                throw ApiException("Failed to fetch products: ${response.code()} - ${response.message()}")
+            }
+        }.toMutableList()
+    }
+
 
     suspend fun getProductById(id: Int, context: Context): ProductDetail {
         val db = AppDataBase.getInstance(context)

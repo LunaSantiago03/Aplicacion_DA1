@@ -11,6 +11,9 @@ class ProductsRepository {
     suspend fun getAllProducts(context: Context): MutableList<ProductDetail> {
         return PS.getProducts(context)
     }
+    suspend fun refresh(context: Context):MutableList<ProductDetail>{
+        return PS.refresh(context)
+    }
 
     suspend fun getProductById(id: Int,context: Context): ProductDetail {
         return PS.getProductById(id,context)
