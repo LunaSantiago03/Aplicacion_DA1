@@ -1,18 +1,22 @@
-package com.example.retrofit_da1.Data.LocalDataBase
+package com.example.retrofit_da1.Data.LocalDataBase.DataBase
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.retrofit_da1.Data.LocalDataBase.DAOs.FavoriteProductsDAO
+import com.example.retrofit_da1.Data.LocalDataBase.DAOs.ProductsDAO
 import com.example.retrofit_da1.Data.LocalDataBase.Entities.CategorySingleLocal
+import com.example.retrofit_da1.Data.LocalDataBase.Entities.FavoriteProductLocal
 import com.example.retrofit_da1.Data.LocalDataBase.Entities.ProductDetailLocal
 @Database(
-    entities = [ProductDetailLocal::class, CategorySingleLocal::class],
-    version = 1,
+    entities = [ProductDetailLocal::class, CategorySingleLocal::class, FavoriteProductLocal::class],
+    version = 2,
     exportSchema = false
 )
 abstract class AppDataBase : RoomDatabase(){
-    abstract fun productsDAO() : ProductsDAO
+    abstract fun favoriteProductsDAO(): FavoriteProductsDAO
+    abstract fun productsDAO(): ProductsDAO
 
     companion object{
         @Volatile

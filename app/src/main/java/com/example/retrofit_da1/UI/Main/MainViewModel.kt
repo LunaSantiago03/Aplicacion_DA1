@@ -54,7 +54,7 @@ class MainViewModel: ViewModel() {
         }
     }
 
-    fun saveFavorite(id:Int,title:String,price:String,images:List<String>){
+    /*fun saveFavorite(id:Int,title:String,price:String,images:List<String>){
         scope.launch {
             kotlin.runCatching {
                 val fp = FavoriteProduct(id,title,price,images)
@@ -65,7 +65,7 @@ class MainViewModel: ViewModel() {
 
             }
         }
-    }
+    }*/
 
     fun searchProducts(title:String){
         scope.launch {

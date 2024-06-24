@@ -72,7 +72,7 @@ class FavoritesActivity : AppCompatActivity(), OnFavoriteDeleteListener{
     override fun onStart(){
         super.onStart()
         binding.progressBar.visibility = View.VISIBLE
-        viewModel.onStart()
+        viewModel.onStart(this)
         binding.progressBar.visibility = View.INVISIBLE
         viewModel.deleteFavoriteSuccess.observe(this, Observer { success ->
             if (success) {
@@ -105,7 +105,7 @@ class FavoritesActivity : AppCompatActivity(), OnFavoriteDeleteListener{
         }
     }
     override fun onFavoriteDelete(id: Int) {
-        viewModel.deleteFavorite(id)
+        viewModel.deleteFavorite(id,this)
     }
 
 

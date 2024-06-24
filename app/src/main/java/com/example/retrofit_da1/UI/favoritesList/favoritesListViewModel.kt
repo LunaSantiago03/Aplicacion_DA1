@@ -1,5 +1,6 @@
 package com.example.retrofit_da1.UI.favoritesList
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
 import kotlin.coroutines.CoroutineContext
 
-class favoritesListViewModel:ViewModel() {
+class favoritesListViewModel():ViewModel() {
     private val coroutineContext: CoroutineContext = newSingleThreadContext("santi")
     private val scope = CoroutineScope(coroutineContext)
     private  val fr = FavoriteRepository()
@@ -21,10 +22,10 @@ class favoritesListViewModel:ViewModel() {
     private val _deleteFavoriteSuccess = MutableLiveData<Boolean>()
     val deleteFavoriteSuccess: LiveData<Boolean> get() = _deleteFavoriteSuccess
 
-    fun onStart(){
+    fun onStart(context: Context){
         scope.launch {
             kotlin.runCatching {
-                fr.getFavoritesProducts()
+                fr.getFavoritesProducts(context)
             }.onSuccess {
                 favoritesProducts.postValue(it)
                 Log.d("FViewModel", "Favorites fetched successfully: ${it.size} items")
@@ -34,11 +35,11 @@ class favoritesListViewModel:ViewModel() {
         }
     }
 
-    fun deleteFavorite(id: Int){
+    fun deleteFavorite(id: Int,context: Context){
         scope.launch {
-            val success = fr.deleteFavoriteProduct(id.toString())
+            val success = fr.deleteFavoriteProduct(id.toString(), context)
             _deleteFavoriteSuccess.postValue(success)
-            onStart()
+            onStart(context)
         }
     }
 

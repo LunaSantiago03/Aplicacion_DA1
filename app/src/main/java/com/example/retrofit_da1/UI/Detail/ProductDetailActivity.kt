@@ -43,14 +43,14 @@ class ProductDetailActivity : AppCompatActivity() {
         super.onStart()
         val productId = intent.getIntExtra("productId", -1)
         binding.progressBar.visibility = View.VISIBLE
-        viewModel.loadProductDetail(productId)
+        viewModel.loadProductDetail(productId,this)
 
     }
 
     private fun bindViewModel(productId : Int) {
         viewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))
             .get(ProductDetailViewModel::class.java)
-        viewModel.loadProductDetail(productId)
+        viewModel.loadProductDetail(productId,this)
     }
 
     private fun observe(productID : Int){
@@ -58,7 +58,7 @@ class ProductDetailActivity : AppCompatActivity() {
             if(viewModel.isFavorite(productID)){
                 viewModel.deleteFavorite()
             }else{
-                viewModel.saveFavorite()
+                viewModel.saveFavorite(this)
                 Toast.makeText(this,"Guardado con exito",Toast.LENGTH_SHORT).show()
             }
         }

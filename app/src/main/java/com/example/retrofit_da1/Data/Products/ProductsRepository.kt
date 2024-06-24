@@ -12,8 +12,8 @@ class ProductsRepository {
         return PS.getProducts(context)
     }
 
-    suspend fun getProductById(id: Int): ProductDetail {
-        return PS.getProductById(id)
+    suspend fun getProductById(id: Int,context: Context): ProductDetail {
+        return PS.getProductById(id,context)
     }
 
     suspend fun getProductsSearch(title:String) :MutableList<ProductDetail>{

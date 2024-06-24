@@ -1,4 +1,4 @@
-package com.example.retrofit_da1.Data.LocalDataBase
+package com.example.retrofit_da1.Data.LocalDataBase.DAOs
 
 import androidx.room.Dao
 import androidx.room.Delete

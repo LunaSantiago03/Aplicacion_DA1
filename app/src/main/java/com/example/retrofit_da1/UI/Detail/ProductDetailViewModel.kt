@@ -1,5 +1,6 @@
 package com.example.retrofit_da1.UI.Detail
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.retrofit_da1.Data.FavoriteRepository
@@ -23,10 +24,10 @@ class ProductDetailViewModel() : ViewModel() {
     lateinit var favoriteProduct: FavoriteProduct
 
 
-    fun loadProductDetail(id: Int) {
+    fun loadProductDetail(id: Int,context: Context) {
         scope.launch {
             kotlin.runCatching {
-                ProductRepo.getProductById(id)
+                ProductRepo.getProductById(id,context)
             }.onSuccess {
                 product.postValue(it ?: ProductDetail())
                 favoriteProduct = FavoriteProduct(it.id,it.title,it.price,it.images)
@@ -39,10 +40,10 @@ class ProductDetailViewModel() : ViewModel() {
         return FProducts.value?.any { it.id == id } == true
     }
 
-    fun saveFavorite(){
+    fun saveFavorite(context:Context){
         scope.launch {
             kotlin.runCatching {
-                fr.saveFavoriteProduct(favoriteProduct)
+                fr.saveFavoriteProduct(favoriteProduct,context)
             }.onSuccess {
 
             }.onFailure {

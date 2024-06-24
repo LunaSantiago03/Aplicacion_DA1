@@ -1,8 +1,9 @@
 package com.example.retrofit_da1.Data.Products
 
 import android.content.Context
-import com.example.retrofit_da1.Data.LocalDataBase.AppDataBase
+import com.example.retrofit_da1.Data.LocalDataBase.DataBase.AppDataBase
 import com.example.retrofit_da1.Data.LocalDataBase.Mapping.toCategorySingleLocal
+import com.example.retrofit_da1.Data.LocalDataBase.Mapping.toProduct
 import com.example.retrofit_da1.Data.LocalDataBase.Mapping.toProductList
 import com.example.retrofit_da1.Data.LocalDataBase.Mapping.toProductListLocal
 import com.example.retrofit_da1.Data.RetrofitHelper
@@ -10,7 +11,7 @@ import com.example.retrofit_da1.Model.ProductDetail
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ProductService {
+class ProductService () {
     private val retrofit = RetrofitHelper.getRetrofit()
 
     suspend fun getProducts(context: Context): MutableList<ProductDetail> {
@@ -40,7 +41,13 @@ class ProductService {
     }
 
 
-    suspend fun getProductById(id: Int): ProductDetail {
+    suspend fun getProductById(id: Int, context: Context): ProductDetail {
+        val db = AppDataBase.getInstance(context)
+        val product = db.productsDAO().getProductWithCategoryByID(id)
+        if(product != null){
+            return product.toProduct()
+        }
+
         return withContext(Dispatchers.IO) {
             val response = retrofit.create(ProductsAPI::class.java).getProductById(id)
             if (response.isSuccessful) {
