@@ -17,35 +17,22 @@ class FavoriteRepository() {
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
     private val user = auth.currentUser
-    //private val localDb = AppDataBase.getInstance(context).favoriteProductsDAO()
+
 
     suspend fun getFavoritesProducts(context: Context): ArrayList<FavoriteProduct> {
-        val localDb = AppDataBase.getInstance(context).favoriteProductsDAO()
         val favoriteProducts = ArrayList<FavoriteProduct>()
-
-        // Consulta los productos favoritos de la base de datos local
-        val localFavorites = localDb.getAllFavoriteProducts().toFavoriteProductList()
-
-        if (localFavorites.isNotEmpty()) {
-            favoriteProducts.addAll(localFavorites)
-            Log.d("FavoriteRepository", "Favorites retrieved from local DB: ${favoriteProducts.size} items")
-        } else if (user != null) {
+        if (user != null) {
             try {
                 val d = FirebaseFirestore.getInstance()
                     .collection("usuarios").document(user.email.toString())
                     .collection("favoritesProducts")
                     .get()
                     .await()
-
                 val remoteFavorites = d.map { document ->
                     document.toObject(FavoriteProduct::class.java)
                 }
-
-                // Si la lista remota no está vacía, guarda los productos en la base de datos local
                 if (remoteFavorites.isNotEmpty()) {
-                    localDb.saveFavoriteProduct(*remoteFavorites.toFavoriteProductListLocal().toTypedArray())
                     favoriteProducts.addAll(remoteFavorites)
-                    Log.d("FavoriteRepository", "Favorites retrieved from Firestore: ${remoteFavorites.size} items and saved to local DB")
                 }
             } catch (e: Exception) {
                 Log.e("FavoriteRepository", "Error retrieving favorites from Firestore", e)
@@ -70,8 +57,6 @@ class FavoriteRepository() {
                     Log.e("FavoriteRepository", "Error saving to Firestore", e)
                 }
         }
-        val localDb = AppDataBase.getInstance(context).favoriteProductsDAO()
-        localDb.saveFavoriteProduct(product.toFavoriteProductLocal())
     }
 
     suspend fun deleteFavoriteProduct(id: String,context: Context): Boolean {
@@ -81,11 +66,6 @@ class FavoriteRepository() {
                 val favProductDoc = userDoc.collection("favoritesProducts").document(id)
                 favProductDoc.delete().await()
                 Log.d("ProductsRepository", "Producto eliminado exitosamente")
-                val localDb = AppDataBase.getInstance(context).favoriteProductsDAO()
-                val productLocal = localDb.getFavoriteProductByID(id.toInt())
-                if (productLocal != null) {
-                    localDb.deleteFavoriteProduct(productLocal)
-                }
                 true
             } ?: run {
                 Log.d("ProductsRepository", "Usuario es nulo")

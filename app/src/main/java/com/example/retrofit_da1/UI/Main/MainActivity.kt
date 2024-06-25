@@ -90,6 +90,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         viewModel.onStart(this)
+
         binding.svProducts.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
@@ -121,6 +122,9 @@ class MainActivity : AppCompatActivity() {
         binding.swipe.setOnRefreshListener{
             viewModel.refresh(this)
             binding.swipe.isRefreshing = false
+            pMin = null
+            pMax = null
+            selectedCategoryId = null
 
         }
     }
@@ -140,7 +144,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this,"Categoria: $selectedCategoryId",Toast.LENGTH_SHORT).show()
         }else if(!pMin.isNullOrEmpty() && !pMax.isNullOrEmpty() && selectedCategoryId != null){
             viewModel.getProductsFiltersJoin(pMin!!.toInt(),pMax!!.toInt(),selectedCategoryId!!)
-            Toast.makeText(this,"Buscando por los filotros",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Buscando por los filtros",Toast.LENGTH_SHORT).show()
         }
     }
     private fun showFiltersDialog(categories: List<CategorySingle>) {

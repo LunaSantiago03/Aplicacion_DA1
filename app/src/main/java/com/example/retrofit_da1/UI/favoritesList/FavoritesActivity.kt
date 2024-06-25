@@ -3,6 +3,7 @@ package com.example.retrofit_da1.UI.favoritesList
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -73,7 +74,8 @@ class FavoritesActivity : AppCompatActivity(), OnFavoriteDeleteListener{
         super.onStart()
         binding.progressBar.visibility = View.VISIBLE
         viewModel.onStart(this)
-        binding.progressBar.visibility = View.INVISIBLE
+        Handler().postDelayed({binding.progressBar.visibility = View.INVISIBLE},1000)
+
         viewModel.deleteFavoriteSuccess.observe(this, Observer { success ->
             if (success) {
                 Toast.makeText(this, "Se borró con éxito", Toast.LENGTH_SHORT).show()

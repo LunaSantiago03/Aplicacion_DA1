@@ -1,0 +1,14 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo blanco con esquinas redondeadas -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white" />
+            <corners android:radius="0dp" />
+        </shape>
+    </item>
+    <!-- Imagen en el centro -->
+    <item
+        android:drawable="@drawable/filtros_icono"
+        android:gravity="center"
+        />
+</layer-list>

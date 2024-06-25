@@ -9,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.retrofit_da1.Model.FavoriteProduct
 import com.example.retrofit_da1.Model.ProductDetail
 import com.example.retrofit_da1.R
+import com.example.retrofit_da1.databinding.ActivityFavoritesBinding
 import com.example.retrofit_da1.databinding.FavoriteItemProductBinding
 import com.example.retrofit_da1.databinding.ItemProductBinding
 
@@ -24,6 +25,5 @@ class favoritesListViewHolder(view: View): RecyclerView.ViewHolder(view) {
             .load(product.images[0])
             .apply(requestOptions)
             .into(binding.ivFoto)
-
     }
 }

@@ -25,21 +25,20 @@
             android:layout_height="40dp"
             android:layout_margin="10dp"
             android:background="@mipmap/filtros"
-            android:backgroundTint="@color/color1"
+            android:backgroundTint="@color/black"
+            android:textColorLink="#000000"
             android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <SearchView
             android:id="@+id/svProducts"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:background="@color/miWhite"
-            android:backgroundTint="@color/miWhite"
+            app:theme="@style/SearchViewStyle"
             android:queryHint="Buscar Productos"
-            android:textColor="#1C1C1C"
-            android:textColorHint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnFilters"
             app:layout_constraintStart_toStartOf="parent"
