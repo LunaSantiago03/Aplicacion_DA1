@@ -30,6 +30,7 @@ class MainViewModel: ViewModel() {
     var FProducts = MutableLiveData<ArrayList<FavoriteProduct>>()
     var categories = MutableLiveData<MutableList<CategorySingle>>()
     val isLoading = MutableLiveData<Boolean>()
+    val isEmpty = MutableLiveData<Boolean>()
 
     fun onStart(context: Context){
         scope.launch {
@@ -46,6 +47,7 @@ class MainViewModel: ViewModel() {
 
     fun refresh(context: Context){
         scope.launch {
+
             try {
                 val refreshedProducts = ProductRepo.refresh(context)
                 products.postValue(refreshedProducts)
@@ -84,11 +86,14 @@ class MainViewModel: ViewModel() {
     fun searchProducts(title:String){
         scope.launch {
             kotlin.runCatching {
+                isLoading.postValue(true)
                 ProductRepo.getProductsSearch(title)
             }.onSuccess {
                 _productsSearch.postValue(it)
+                isLoading.postValue(false)
                 Log.d("MainViewModel", "Products fetched: $it")
             }.onFailure {
+                isLoading.postValue(false)
                 Log.e("MainViewModel", "Failed to fetch products", it)
             }
         }
@@ -98,11 +103,18 @@ class MainViewModel: ViewModel() {
     fun getByRangePrice(min:Int,max:Int){
         scope.launch {
             kotlin.runCatching {
+                isLoading.postValue(true)
                 ProductRepo.getProductsByRangePrice(min,max)
             }.onSuccess {
                 products.postValue(it)
                 isLoading.postValue(false)
+                if(it.isEmpty()){
+                    isEmpty.postValue(false)
+                }else{
+                    isEmpty.postValue(true)
+                }
             }.onFailure {
+                isLoading.postValue(false)
                 Log.e("MainViewModel", "Fallo buscar por rango", it)
             }
         }
@@ -111,11 +123,13 @@ class MainViewModel: ViewModel() {
     fun getProductsFiltersJoin(min:Int,max:Int,id: Int){
         scope.launch {
             kotlin.runCatching {
+                isLoading.postValue(true)
                 ProductRepo.getProductsFiltersJoin(min,max,id)
             }.onSuccess{
                 products.postValue(it)
                 isLoading.postValue(false)
             }.onFailure {
+                isLoading.postValue(false)
                 Log.e("MainViewModel", "Fallo buscar con filtros", it)
             }
         }
@@ -124,11 +138,13 @@ class MainViewModel: ViewModel() {
     fun getByCategory(id:Int){
         scope.launch {
             kotlin.runCatching {
+                isLoading.postValue(true)
                 ProductRepo.getProductsByCategory(id)
             }.onSuccess {
                 products.postValue(it)
                 isLoading.postValue(false)
             }.onFailure {
+                isLoading.postValue(false)
                 Log.e("MainViewModel", "Fallo buscar por categoria", it)
             }
         }

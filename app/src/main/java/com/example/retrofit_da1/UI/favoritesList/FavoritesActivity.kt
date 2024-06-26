@@ -73,14 +73,6 @@ class FavoritesActivity : AppCompatActivity(), OnFavoriteDeleteListener{
     override fun onStart(){
         super.onStart()
         viewModel.onStart()
-        viewModel.deleteFavoriteSuccess.observe(this, Observer { success ->
-            if (success) {
-                Toast.makeText(this, "Se borró con éxito", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Error al eliminar", Toast.LENGTH_SHORT).show()
-            }
-        })
-
     }
 
     private fun bindView(){
@@ -111,9 +103,15 @@ class FavoritesActivity : AppCompatActivity(), OnFavoriteDeleteListener{
                 binding.progressBar.visibility = View.INVISIBLE
             }
         }
+        viewModel.isEmpty.observe(this){
+            if(!it){
+                Toast.makeText(this,"No hay productos guardados",Toast.LENGTH_SHORT).show()
+            }
+        }
     }
     override fun onFavoriteDelete(id: Int) {
         viewModel.deleteFavorite(id)
+        Toast.makeText(this,"Borrando de favoritos...",Toast.LENGTH_SHORT).show()
     }
 
 

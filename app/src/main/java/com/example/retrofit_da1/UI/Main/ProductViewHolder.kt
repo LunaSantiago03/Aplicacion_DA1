@@ -14,10 +14,12 @@ class ProductViewHolder(view: View):RecyclerView.ViewHolder(view) {
     fun bind(product: ProductDetail){
         binding.tvName.text = product.title
         binding.tvPrice.text = "$"+product.price
+
         val requestOptions = RequestOptions().transform(RoundedCorners(20))
         Glide.with(itemView.context)
             .load(product.images[0])
             .apply(requestOptions)
             .into(binding.ivProduct)
+
     }
 }

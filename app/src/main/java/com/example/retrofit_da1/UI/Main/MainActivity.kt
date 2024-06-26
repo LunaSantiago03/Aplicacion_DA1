@@ -127,25 +127,25 @@ class MainActivity : AppCompatActivity() {
             pMin = null
             pMax = null
             selectedCategoryId = null
-
+            binding.btnFilters.setCompoundDrawablesWithIntrinsicBounds(0,R.mipmap.filtros_inactivos,0,0)
         }
+
     }
     fun onDialogDismissed() {
         when {
             !pMin.isNullOrEmpty() && !pMax.isNullOrEmpty() && selectedCategoryId == null -> {
-                Toast.makeText(this, "Minimo: $pMin y Maximo: $pMax", Toast.LENGTH_SHORT).show()
                 viewModel.getByRangePrice(pMin!!.toInt(), pMax!!.toInt())
+                binding.btnFilters.setCompoundDrawablesWithIntrinsicBounds(0,R.mipmap.filtros_activos,0,0)
             }
             pMin.isNullOrEmpty() && pMax.isNullOrEmpty() && selectedCategoryId != null -> {
                 viewModel.getByCategory(selectedCategoryId!!)
-                Toast.makeText(this, "Categoria: $selectedCategoryId", Toast.LENGTH_SHORT).show()
+                binding.btnFilters.setCompoundDrawablesWithIntrinsicBounds(0,R.mipmap.filtros_activos,0,0)
             }
             !pMin.isNullOrEmpty() && !pMax.isNullOrEmpty() && selectedCategoryId != null -> {
                 viewModel.getProductsFiltersJoin(pMin!!.toInt(), pMax!!.toInt(), selectedCategoryId!!)
-                Toast.makeText(this, "Buscando por los filtros", Toast.LENGTH_SHORT).show()
+                binding.btnFilters.setCompoundDrawablesWithIntrinsicBounds(0,R.mipmap.filtros_activos,0,0)
             }
             else -> {
-                Toast.makeText(this, "Por favor, complete los filtros necesarios", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -175,7 +175,6 @@ class MainActivity : AppCompatActivity() {
         }
         binding.recyclerProduct.adapter = productAdapter
 
-
         binding.btnFilters.setOnClickListener {
             viewModel.categories.value?.let { categories ->
                 showFiltersDialog(categories)
@@ -195,6 +194,18 @@ class MainActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.INVISIBLE
             }
         }
+
+        /*viewModel.isEmpty.observe(this){
+            if(!it){
+                Toast.makeText(this,"No hay productos guardados",Toast.LENGTH_SHORT).show()
+            }
+        }*/
+        viewModel.products.observe(this){
+            if(it.isEmpty()){
+                Toast.makeText(this,"No se encontraron productos",Toast.LENGTH_SHORT).show()
+            }
+        }
+
 
     }
 
@@ -221,7 +232,4 @@ class MainActivity : AppCompatActivity() {
         return prefs.getString("user_id", null) != null
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
 }

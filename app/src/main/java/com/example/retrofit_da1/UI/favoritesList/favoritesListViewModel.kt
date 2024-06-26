@@ -21,6 +21,7 @@ class favoritesListViewModel():ViewModel() {
     var favoritesProducts = MutableLiveData<ArrayList<FavoriteProduct>>()
     private val _deleteFavoriteSuccess = MutableLiveData<Boolean>()
     val isLoading = MutableLiveData<Boolean>()
+    val isEmpty = MutableLiveData<Boolean>()
     val deleteFavoriteSuccess: LiveData<Boolean> get() = _deleteFavoriteSuccess
 
     fun onStart(){
@@ -30,6 +31,9 @@ class favoritesListViewModel():ViewModel() {
             }.onSuccess {
                 favoritesProducts.postValue(it)
                 isLoading.postValue(false)
+                if(it.isEmpty()){
+                    isEmpty.postValue(false)
+                }
                 Log.d("FViewModel", "Favorites fetched successfully: ${it.size} items")
             }.onFailure {
                 isLoading.postValue(false)
