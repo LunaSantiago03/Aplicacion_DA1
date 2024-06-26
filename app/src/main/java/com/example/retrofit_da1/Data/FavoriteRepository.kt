@@ -19,7 +19,7 @@ class FavoriteRepository() {
     private val user = auth.currentUser
 
 
-    suspend fun getFavoritesProducts(context: Context): ArrayList<FavoriteProduct> {
+    suspend fun getFavoritesProducts(): ArrayList<FavoriteProduct> {
         val favoriteProducts = ArrayList<FavoriteProduct>()
         if (user != null) {
             try {
@@ -44,7 +44,7 @@ class FavoriteRepository() {
         return favoriteProducts
     }
 
-    suspend fun saveFavoriteProduct(product: FavoriteProduct, context: Context){
+    suspend fun saveFavoriteProduct(product: FavoriteProduct){
         Log.d("FRViewModel","Guardando favorito")
         if(user != null){
             try {
@@ -59,7 +59,7 @@ class FavoriteRepository() {
         }
     }
 
-    suspend fun deleteFavoriteProduct(id: String,context: Context): Boolean {
+    suspend fun deleteFavoriteProduct(id: String): Boolean {
         return try {
             user?.let { user ->
                 val userDoc = db.collection("usuarios").document(user.email.toString())

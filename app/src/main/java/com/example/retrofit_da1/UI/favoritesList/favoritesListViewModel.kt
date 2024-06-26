@@ -20,26 +20,29 @@ class favoritesListViewModel():ViewModel() {
 
     var favoritesProducts = MutableLiveData<ArrayList<FavoriteProduct>>()
     private val _deleteFavoriteSuccess = MutableLiveData<Boolean>()
+    val isLoading = MutableLiveData<Boolean>()
     val deleteFavoriteSuccess: LiveData<Boolean> get() = _deleteFavoriteSuccess
 
-    fun onStart(context: Context){
+    fun onStart(){
         scope.launch {
             kotlin.runCatching {
-                fr.getFavoritesProducts(context)
+                fr.getFavoritesProducts()
             }.onSuccess {
                 favoritesProducts.postValue(it)
+                isLoading.postValue(false)
                 Log.d("FViewModel", "Favorites fetched successfully: ${it.size} items")
             }.onFailure {
+                isLoading.postValue(false)
                 Log.e("FViewModel", "Error fetching favorites", it)
             }
         }
     }
 
-    fun deleteFavorite(id: Int,context: Context){
+    fun deleteFavorite(id: Int){
         scope.launch {
-            val success = fr.deleteFavoriteProduct(id.toString(), context)
+            val success = fr.deleteFavoriteProduct(id.toString())
             _deleteFavoriteSuccess.postValue(success)
-            onStart(context)
+            onStart()
         }
     }
 

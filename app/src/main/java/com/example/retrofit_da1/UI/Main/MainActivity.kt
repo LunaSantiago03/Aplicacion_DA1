@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -85,12 +86,12 @@ class MainActivity : AppCompatActivity() {
         bindView()
         bindViewModel()
         configSwipe()
+        viewModel.getCategories()
     }
 
     override fun onStart() {
         super.onStart()
         viewModel.onStart(this)
-
         binding.svProducts.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
@@ -116,6 +117,7 @@ class MainActivity : AppCompatActivity() {
             productAdapter.update(products)
         })
 
+
     }
 
     private fun configSwipe(){
@@ -129,22 +131,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
     fun onDialogDismissed() {
-        if (!pMin.isNullOrEmpty() && !pMax.isNullOrEmpty() &&  selectedCategoryId == null) {
-            Toast.makeText(this, "Minimo: $pMin y Maximo: $pMax", Toast.LENGTH_SHORT).show()
-            viewModel.getByRangePrice(pMin!!.toInt(),pMax!!.toInt())
-        }
-        else if(!pMin.isNullOrEmpty() && pMax.isNullOrEmpty() && selectedCategoryId == null){
-            Toast.makeText(this, "Minimo: $pMin", Toast.LENGTH_SHORT).show()
-        }
-        else if(pMin.isNullOrEmpty() && !pMax.isNullOrEmpty() && selectedCategoryId == null){
-            Toast.makeText(this, "Maximo: $pMax", Toast.LENGTH_SHORT).show()
-
-        }else if(pMin.isNullOrEmpty() && pMax.isNullOrEmpty() && selectedCategoryId != null){
-            viewModel.getByCategory(selectedCategoryId!!)
-            Toast.makeText(this,"Categoria: $selectedCategoryId",Toast.LENGTH_SHORT).show()
-        }else if(!pMin.isNullOrEmpty() && !pMax.isNullOrEmpty() && selectedCategoryId != null){
-            viewModel.getProductsFiltersJoin(pMin!!.toInt(),pMax!!.toInt(),selectedCategoryId!!)
-            Toast.makeText(this,"Buscando por los filtros",Toast.LENGTH_SHORT).show()
+        when {
+            !pMin.isNullOrEmpty() && !pMax.isNullOrEmpty() && selectedCategoryId == null -> {
+                Toast.makeText(this, "Minimo: $pMin y Maximo: $pMax", Toast.LENGTH_SHORT).show()
+                viewModel.getByRangePrice(pMin!!.toInt(), pMax!!.toInt())
+            }
+            pMin.isNullOrEmpty() && pMax.isNullOrEmpty() && selectedCategoryId != null -> {
+                viewModel.getByCategory(selectedCategoryId!!)
+                Toast.makeText(this, "Categoria: $selectedCategoryId", Toast.LENGTH_SHORT).show()
+            }
+            !pMin.isNullOrEmpty() && !pMax.isNullOrEmpty() && selectedCategoryId != null -> {
+                viewModel.getProductsFiltersJoin(pMin!!.toInt(), pMax!!.toInt(), selectedCategoryId!!)
+                Toast.makeText(this, "Buscando por los filtros", Toast.LENGTH_SHORT).show()
+            }
+            else -> {
+                Toast.makeText(this, "Por favor, complete los filtros necesarios", Toast.LENGTH_SHORT).show()
+            }
         }
     }
     private fun showFiltersDialog(categories: List<CategorySingle>) {
@@ -173,8 +175,11 @@ class MainActivity : AppCompatActivity() {
         }
         binding.recyclerProduct.adapter = productAdapter
 
+
         binding.btnFilters.setOnClickListener {
-            viewModel.getCategories()
+            viewModel.categories.value?.let { categories ->
+                showFiltersDialog(categories)
+            }
         }
     }
 
@@ -183,10 +188,14 @@ class MainActivity : AppCompatActivity() {
         viewModel.products.observe(this) {
             productAdapter.update(it)
         }
+        viewModel.isLoading.observe(this) { isLoading ->
+            if (isLoading) {
+                binding.progressBar.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.INVISIBLE
+            }
+        }
 
-        viewModel.categories.observe(this, Observer { categories ->
-            showFiltersDialog(categories)
-        })
     }
 
     private fun signOut() {
@@ -210,5 +219,9 @@ class MainActivity : AppCompatActivity() {
     private fun isUserLoggedIn(): Boolean {
         val prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
         return prefs.getString("user_id", null) != null
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

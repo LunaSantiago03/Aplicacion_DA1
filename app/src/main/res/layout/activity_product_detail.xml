@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@color/miWhite"
     android:layout_height="match_parent"
-    android:paddingTop="10dp"
+    android:paddingTop="5dp"
     >
 
     <ScrollView
@@ -38,16 +38,19 @@
 
             <Button
                 android:id="@+id/btnBack"
-                android:background="@mipmap/back"
-                android:backgroundTintMode="@color/black"
-                android:layout_width="43dp"
-                android:layout_height="34dp"
+                android:drawableTop="@mipmap/back"
+                android:backgroundTint="@color/verdeOscuroBotones"
+                android:drawablePadding="0dp"
+                android:gravity="center"
+                android:padding="0dp"
+                android:layout_width="40dp"
+                android:layout_height="37dp"
                 android:layout_marginStart="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="6dp"
                 android:id="@+id/ivProduct"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
@@ -57,12 +60,14 @@
 
             <Button
                 android:id="@+id/btnSaveFavorite"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:layout_margin="10dp"
-                android:backgroundTintMode="@color/verdeOscuro"
-                android:backgroundTint="@color/verdeOscuro"
-                android:background="@mipmap/nosave"
+                android:backgroundTint="@color/miWhite"
+                android:drawableTop="@mipmap/nosave"
+                android:drawablePadding="0dp"
+                android:gravity="center"
+                android:padding="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivProduct" />
 

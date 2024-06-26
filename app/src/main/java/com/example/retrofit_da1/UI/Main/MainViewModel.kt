@@ -29,6 +29,7 @@ class MainViewModel: ViewModel() {
     val _productsSearch = MutableLiveData<MutableList<ProductDetail>>()
     var FProducts = MutableLiveData<ArrayList<FavoriteProduct>>()
     var categories = MutableLiveData<MutableList<CategorySingle>>()
+    val isLoading = MutableLiveData<Boolean>()
 
     fun onStart(context: Context){
         scope.launch {
@@ -36,8 +37,9 @@ class MainViewModel: ViewModel() {
                 ProductRepo.getAllProducts(context)
             }.onSuccess{
                 products.postValue(it)
+                isLoading.postValue(false)
             }.onFailure {
-
+                isLoading.postValue(false)
             }
         }
     }
@@ -47,6 +49,7 @@ class MainViewModel: ViewModel() {
             try {
                 val refreshedProducts = ProductRepo.refresh(context)
                 products.postValue(refreshedProducts)
+                isLoading.postValue(false)
             } catch (e: Exception) {
                 Log.e("MainViewModel", "Error refreshing products", e)
             }
@@ -98,6 +101,7 @@ class MainViewModel: ViewModel() {
                 ProductRepo.getProductsByRangePrice(min,max)
             }.onSuccess {
                 products.postValue(it)
+                isLoading.postValue(false)
             }.onFailure {
                 Log.e("MainViewModel", "Fallo buscar por rango", it)
             }
@@ -110,6 +114,7 @@ class MainViewModel: ViewModel() {
                 ProductRepo.getProductsFiltersJoin(min,max,id)
             }.onSuccess{
                 products.postValue(it)
+                isLoading.postValue(false)
             }.onFailure {
                 Log.e("MainViewModel", "Fallo buscar con filtros", it)
             }
@@ -122,6 +127,7 @@ class MainViewModel: ViewModel() {
                 ProductRepo.getProductsByCategory(id)
             }.onSuccess {
                 products.postValue(it)
+                isLoading.postValue(false)
             }.onFailure {
                 Log.e("MainViewModel", "Fallo buscar por categoria", it)
             }

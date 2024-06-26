@@ -47,6 +47,19 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/miGrey"
+        android:backgroundTint="@color/white"
+        android:drawingCacheQuality="auto"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/verdeOscuro"
+        android:max="100"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe"
@@ -56,6 +69,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Filters"
 
         >
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerProduct"

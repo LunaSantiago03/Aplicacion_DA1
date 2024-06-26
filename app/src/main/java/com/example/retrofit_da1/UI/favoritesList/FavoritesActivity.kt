@@ -72,10 +72,7 @@ class FavoritesActivity : AppCompatActivity(), OnFavoriteDeleteListener{
 
     override fun onStart(){
         super.onStart()
-        binding.progressBar.visibility = View.VISIBLE
-        viewModel.onStart(this)
-        Handler().postDelayed({binding.progressBar.visibility = View.INVISIBLE},1000)
-
+        viewModel.onStart()
         viewModel.deleteFavoriteSuccess.observe(this, Observer { success ->
             if (success) {
                 Toast.makeText(this, "Se borró con éxito", Toast.LENGTH_SHORT).show()
@@ -99,15 +96,24 @@ class FavoritesActivity : AppCompatActivity(), OnFavoriteDeleteListener{
         )
         binding.recyclerProductF.adapter = favoritesAdapter
 
+
+
     }
     private fun bindViewModel(){
         viewModel = ViewModelProvider(this)[favoritesListViewModel::class.java]
         viewModel.favoritesProducts.observe(this){
             favoritesAdapter.update(it)
         }
+        viewModel.isLoading.observe(this) { isLoading ->
+            if (isLoading) {
+                binding.progressBar.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.INVISIBLE
+            }
+        }
     }
     override fun onFavoriteDelete(id: Int) {
-        viewModel.deleteFavorite(id,this)
+        viewModel.deleteFavorite(id)
     }
 
 
