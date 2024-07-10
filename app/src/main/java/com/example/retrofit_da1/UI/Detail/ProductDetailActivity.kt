@@ -40,12 +40,9 @@ class ProductDetailActivity : AppCompatActivity() {
             }
         }
         viewModel.product.observe(this) { product ->
-            val imagesArray = parseImagesArray(product.images[0])
-            if (imagesArray.isNotEmpty()) {
                 Glide.with(binding.root.context)
-                    .load(imagesArray[0])
+                    .load(product.images[0])
                     .into(binding.ivProduct)
-                }
             binding.tvTitle.text = product.title
             binding.tvPrice.text = "$"+product.price
             binding.tvDescription.text = product.description
@@ -72,16 +69,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
 
     }
-    private fun parseImagesArray(imagesString: String): List<String> {
-        // Remove brackets and quotes, split by comma and trim spaces
-        val cleanString = imagesString
-            .replace("[", "")
-            .replace("]", "")
-            .replace("\"", "")
-            .split(",")
-            .map { it.trim() }
-        return cleanString.filter { it.isNotEmpty() }
-    }
+
 
     private fun bindViewModel(productId : Int) {
         viewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))

@@ -35,7 +35,8 @@
             android:theme="@style/Theme.Retrofit_DA1" />
         <activity
             android:name=".UI.Main.MainActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".UI.favoritesList.FavoritesActivity"
             android:exported="false" />

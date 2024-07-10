@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -23,6 +24,7 @@ import com.example.retrofit_da1.UI.components.FiltersDialog
 import com.example.retrofit_da1.UI.favoritesList.FavoritesActivity
 import com.example.retrofit_da1.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 import java.util.logging.Handler
 
 class MainActivity : AppCompatActivity() {
@@ -96,6 +98,7 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
                     viewModel.searchProducts(it)
+                    hideKeyboard()
                 }
                 return true
             }
@@ -118,6 +121,10 @@ class MainActivity : AppCompatActivity() {
         })
 
 
+    }
+    private fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.svProducts.windowToken, 0)
     }
 
     private fun configSwipe(){
