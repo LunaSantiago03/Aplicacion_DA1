@@ -44,9 +44,7 @@ class ProductDetailViewModel() : ViewModel() {
                 fr.getFavoritesProducts()
             }.onSuccess {
                 FProducts.postValue(it)
-                Log.d("FViewModel", "Favorites fetched successfully: ${it.size} items")
             }.onFailure {
-                Log.e("FViewModel", "Error fetching favorites", it)
             }
         }
     }
@@ -59,9 +57,8 @@ class ProductDetailViewModel() : ViewModel() {
             kotlin.runCatching {
                 fr.saveFavoriteProduct(favoriteProduct)
             }.onSuccess {
-                loadFavorites() // Refrescar la lista de favoritos después de guardar
+                loadFavorites()
             }.onFailure {
-                Log.e("FViewModel", "Error saving favorite", it)
             }
         }
     }
@@ -70,9 +67,8 @@ class ProductDetailViewModel() : ViewModel() {
             kotlin.runCatching {
                 fr.deleteFavoriteProduct(id.toString())
             }.onSuccess {
-                loadFavorites() // Refrescar la lista de favoritos después de eliminar
+                loadFavorites()
             }.onFailure {
-                Log.e("FViewModel", "Error deleting favorite", it)
             }
         }
     }

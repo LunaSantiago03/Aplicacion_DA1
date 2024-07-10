@@ -84,7 +84,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
         bindView()
         bindViewModel()
         configSwipe()
@@ -202,18 +201,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        /*viewModel.isEmpty.observe(this){
-            if(!it){
-                Toast.makeText(this,"No hay productos guardados",Toast.LENGTH_SHORT).show()
-            }
-        }*/
         viewModel.products.observe(this){
             if(it.isEmpty()){
                 Toast.makeText(this,"No se encontraron productos",Toast.LENGTH_SHORT).show()
             }
         }
-
-
     }
 
     private fun signOut() {

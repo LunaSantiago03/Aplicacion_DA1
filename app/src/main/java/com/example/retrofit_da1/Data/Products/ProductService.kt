@@ -26,11 +26,9 @@ class ProductService () {
             if (response.isSuccessful) {
                 val productList = response.body() ?: emptyList()
                 if (productList.isNotEmpty()) {
-                    // Guardar categorías primero
                     val categories = productList.map { it.category }.distinctBy { it.id }
                     db.productsDAO().saveCategory(*categories.map { it.toCategorySingleLocal() }.toTypedArray())
 
-                    // Guardar productos
                     db.productsDAO().saveProduct(*productList.toProductListLocal().toTypedArray())
                 }
                 productList
@@ -48,15 +46,12 @@ class ProductService () {
                 if (productList.isNotEmpty()) {
                     val db = AppDataBase.getInstance(context)
 
-                    // Primero, elimina todos los productos y categorías existentes en Room
                     db.productsDAO().clearAllProducts()
                     db.productsDAO().clearAllCategories()
 
-                    // Guardar categorías primero
                     val categories = productList.map { it.category }.distinctBy { it.id }
                     db.productsDAO().saveCategory(*categories.map { it.toCategorySingleLocal() }.toTypedArray())
 
-                    // Guardar productos
                     db.productsDAO().saveProduct(*productList.toProductListLocal().toTypedArray())
                 }
                 productList

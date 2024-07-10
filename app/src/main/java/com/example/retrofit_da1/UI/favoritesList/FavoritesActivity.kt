@@ -88,8 +88,6 @@ class FavoritesActivity : AppCompatActivity(), OnFavoriteDeleteListener{
         )
         binding.recyclerProductF.adapter = favoritesAdapter
 
-
-
     }
     private fun bindViewModel(){
         viewModel = ViewModelProvider(this)[favoritesListViewModel::class.java]

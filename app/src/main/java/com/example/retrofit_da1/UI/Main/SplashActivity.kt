@@ -21,11 +21,9 @@ class SplashActivity : AppCompatActivity() {
         Handler().postDelayed({
             val currentUser = auth.currentUser
             if (currentUser != null) {
-                // El usuario está autenticado
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             } else {
-                // El usuario no autenticado
                 val intent = Intent(this, AuthActivity::class.java)
                 startActivity(intent)
             }

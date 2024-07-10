@@ -23,7 +23,6 @@ class AuthViewModel : ViewModel() {
     }
 
 
-
     fun registerWithEmailAndPassword(email: String, password: String, onComplete: (Boolean) -> Unit) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->

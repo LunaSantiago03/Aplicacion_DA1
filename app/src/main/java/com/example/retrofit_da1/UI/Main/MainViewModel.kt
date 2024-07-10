@@ -22,12 +22,10 @@ class MainViewModel: ViewModel() {
     private val scope = CoroutineScope(coroutineContext)
 
     private val ProductRepo = ProductsRepository()
-    private  val fr = FavoriteRepository()
     private val categoriesRepository = CategoriesRepository()
 
     var products = MutableLiveData<MutableList<ProductDetail>>()
     val _productsSearch = MutableLiveData<MutableList<ProductDetail>>()
-    var FProducts = MutableLiveData<ArrayList<FavoriteProduct>>()
     var categories = MutableLiveData<MutableList<CategorySingle>>()
     val isLoading = MutableLiveData<Boolean>()
     val isEmpty = MutableLiveData<Boolean>()
@@ -70,18 +68,6 @@ class MainViewModel: ViewModel() {
         }
     }
 
-    /*fun saveFavorite(id:Int,title:String,price:String,images:List<String>){
-        scope.launch {
-            kotlin.runCatching {
-                val fp = FavoriteProduct(id,title,price,images)
-                fr.saveFavoriteProduct(fp)
-            }.onSuccess {
-
-            }.onFailure {
-
-            }
-        }
-    }*/
 
     fun searchProducts(title:String){
         scope.launch {
@@ -115,7 +101,6 @@ class MainViewModel: ViewModel() {
                 }
             }.onFailure {
                 isLoading.postValue(false)
-                Log.e("MainViewModel", "Fallo buscar por rango", it)
             }
         }
     }
@@ -130,7 +115,6 @@ class MainViewModel: ViewModel() {
                 isLoading.postValue(false)
             }.onFailure {
                 isLoading.postValue(false)
-                Log.e("MainViewModel", "Fallo buscar con filtros", it)
             }
         }
     }
@@ -150,9 +134,6 @@ class MainViewModel: ViewModel() {
         }
     }
 
-    fun isFavorite(id:Int):Boolean{
-        return FProducts.value?.any { it.id == id } == true
-    }
 
 
 }

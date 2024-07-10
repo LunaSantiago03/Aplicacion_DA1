@@ -22,7 +22,6 @@ class favoritesListViewModel():ViewModel() {
     private val _deleteFavoriteSuccess = MutableLiveData<Boolean>()
     val isLoading = MutableLiveData<Boolean>()
     val isEmpty = MutableLiveData<Boolean>()
-    val deleteFavoriteSuccess: LiveData<Boolean> get() = _deleteFavoriteSuccess
 
     fun onStart(){
         scope.launch {

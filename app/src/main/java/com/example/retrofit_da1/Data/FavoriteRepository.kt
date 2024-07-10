@@ -1,16 +1,10 @@
 package com.example.retrofit_da1.Data
 
-import android.content.Context
+
 import android.util.Log
-import android.widget.Toast
-import com.example.retrofit_da1.Data.LocalDataBase.DataBase.AppDataBase
-import com.example.retrofit_da1.Data.LocalDataBase.Mapping.toFavoriteProductList
-import com.example.retrofit_da1.Data.LocalDataBase.Mapping.toFavoriteProductListLocal
-import com.example.retrofit_da1.Data.LocalDataBase.Mapping.toFavoriteProductLocal
 import com.example.retrofit_da1.Model.FavoriteProduct
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.tasks.await
 
 class FavoriteRepository() {
@@ -54,7 +48,6 @@ class FavoriteRepository() {
                     .set(product)
                     .await()
                 } catch (e:Exception){
-                    Log.e("FavoriteRepository", "Error saving to Firestore", e)
                 }
         }
     }
@@ -65,14 +58,11 @@ class FavoriteRepository() {
                 val userDoc = db.collection("usuarios").document(user.email.toString())
                 val favProductDoc = userDoc.collection("favoritesProducts").document(id)
                 favProductDoc.delete().await()
-                Log.d("ProductsRepository", "Producto eliminado exitosamente")
                 true
             } ?: run {
-                Log.d("ProductsRepository", "Usuario es nulo")
                 false
             }
         } catch (e: Exception) {
-            Log.w("ProductsRepository", "Error al eliminar producto", e)
             false
         }
     }

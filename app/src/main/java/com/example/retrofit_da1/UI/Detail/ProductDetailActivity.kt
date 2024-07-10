@@ -17,9 +17,6 @@ class ProductDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProductDetailBinding
     private lateinit var viewModel: ProductDetailViewModel
-    private lateinit var viewModelF: favoritesListViewModel
-
-
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,8 +49,6 @@ class ProductDetailActivity : AppCompatActivity() {
             binding.btnSaveFavorite.visibility = View.VISIBLE
         }
 
-
-
         observe(productId)
     }
 
@@ -65,16 +60,12 @@ class ProductDetailActivity : AppCompatActivity() {
         binding.progressBar.visibility = View.VISIBLE
         viewModel.loadFavorites()
         viewModel.loadProductDetail(productId,this)
-
-
-
     }
 
 
     private fun bindViewModel(productId : Int) {
         viewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))
             .get(ProductDetailViewModel::class.java)
-        //viewModel.loadProductDetail(productId,this)
     }
 
     private fun observe(productID : Int){

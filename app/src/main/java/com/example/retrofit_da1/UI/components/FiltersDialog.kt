@@ -30,8 +30,6 @@ class FiltersDialog (
         super.onCreate(savedInstanceState)
         binding = FiltersProductsBinding.inflate(LayoutInflater.from(context))
 
-
-
         val builder = AlertDialog.Builder(requireActivity())
         builder.setView(binding.root)
 

@@ -40,7 +40,6 @@ class AuthActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
 
-        // Configuración de Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -91,7 +90,6 @@ class AuthActivity : AppCompatActivity() {
             viewModel.signInWithGoogle(idToken)
         }
     }
-
 
     private fun setUp() {
         binding.btnRegister.setOnClickListener {

@@ -35,16 +35,3 @@ fun List<ProductWithCategory>.toProductList() = map {
 
 fun List<ProductDetail>.toProductListLocal() = map(ProductDetail::toProductLocal)
 
-//Favorites
-fun FavoriteProductLocal.toFavoriteProduct() = FavoriteProduct(
-    id, title, price, listOf(image)
-)
-
-fun FavoriteProduct.toFavoriteProductLocal() = FavoriteProductLocal(
-    id, title, price, images.firstOrNull() ?: ""
-)
-
-fun List<FavoriteProductLocal>.toFavoriteProductList() = map(FavoriteProductLocal::toFavoriteProduct)
-
-fun List<FavoriteProduct>.toFavoriteProductListLocal() = map(FavoriteProduct::toFavoriteProductLocal)
-
